@@ -11,7 +11,9 @@
     "build": "gulp build",
     "build-example": "gulp build-example",
     "prepack": "gulp --series build version",
-    "test": "gulp build"
+    "test": "gulp build",
+    "image": "podman build . -t quay.io/tasato/hawtio-oauth:latest",
+    "image-run": "podman run -d -p 9000:80 --name hawtio quay.io/tasato/hawtio-oauth:latest"
   },
   "dependencies": {
     "@hawtio/core": "^4.15.0",
