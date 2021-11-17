@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: test
+  name: hawtio-oauth
+  labels:
+    app: hawtio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hawtio
+  template:
+    metadata:
+      labels:
+        app: hawtio
+    spec:
+      containers:
+        - name: hawtio-oauth
+          image: quay.io/tasato/hawtio-oauth:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "0.2"
+              memory: 32Mi
+            limits:
+              cpu: "1.0"
+              memory: 32Mi
+          volumeMounts:
+            - name: hawtio-oauth-config
+              mountPath: /usr/share/nginx/html/hawtio/oauth
+      volumes:
+        - name: hawtio-oauth-config
+          secret:
+            secretName: hawtio-oauth-config
