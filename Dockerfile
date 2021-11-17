@@ -9,6 +9,7 @@ COPY node_modules/ /usr/share/nginx/html/hawtio/node_modules/
 
 # redirect / -> /hawtio/
 RUN echo '<meta http-equiv="refresh" content="0;URL=/hawtio/">' > /usr/share/nginx/html/index.html
+RUN sed -i 's|error_page 404 /404.html|error_page 404 /hawtio/index.html|' /etc/nginx/nginx.conf
 
 EXPOSE 80 443
 
